@@ -1,23 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request; // Import the correct Request class
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
@@ -37,9 +26,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
-    protected function Authenticated(Request $request, $user)
+
+    /**
+     * The user has been authenticated.
+     *
+    
+     */
+    protected function authenticated(Request $request, $user)
     {
-        if ($user->role === 'admin') {
+        if ($user->role === 'admin') {  // Correct role spelling
             return redirect('/admin/dashboard');
         } else {
             return redirect('/user/dashboard');
